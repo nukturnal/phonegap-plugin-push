@@ -204,12 +204,13 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
                 (title != null && title.length() != 0)) {
 
             Log.d(LOG_TAG, "create notification");
-
             createNotification(context, extras);
-        } else {
-            Log.d(LOG_TAG, "send notification event");
-            PushPlugin.sendExtras(extras);
         }
+        /** Always send notification data
+        Forcing notification alert when App is in the foreground does not exonerate the fact that the app might
+        need abitrary data included in the push message payload **/
+        Log.d(LOG_TAG, "send notification event");
+        PushPlugin.sendExtras(extras);
     }
 
     public void createNotification(Context context, Bundle extras) {
